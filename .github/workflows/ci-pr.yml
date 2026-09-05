@@ -66,7 +66,7 @@ env:
 # Cancel running jobs when a new push happens to the same branch as otherwise it will
 # tie up too many resources without providing much value.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.leg || github.event_name }}
   cancel-in-progress: true
 
 run-name: "Build PR ${{ inputs.leg || 'push' }} ${{ inputs.racecar_run }}"
