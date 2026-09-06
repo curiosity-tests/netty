@@ -58,9 +58,9 @@ permissions:
 
 env:
   # The one variable that separates the arms. On baseline, action-checkout
-  # skips its Set up Chalk step entirely. The github.event_name guard keeps
-  # incidental push/PR runs uninstrumented, where inputs.leg is empty.
-  CHALK_ON: ${{ github.event_name == 'workflow_dispatch' && inputs.leg != 'baseline' }}
+  # skips its Set up Chalk step entirely. On a push there are no inputs, so
+  # this is false and incidental push/PR runs stay uninstrumented.
+  CHALK_ON: ${{ inputs.leg == 'instrumented' }}
   MAVEN_OPTS: -Xmx6g -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryhandler.count=5 -Dmaven.wagon.httpconnectionManager.ttlSeconds=240
 
 # Cancel running jobs when a new push happens to the same branch as otherwise it will
